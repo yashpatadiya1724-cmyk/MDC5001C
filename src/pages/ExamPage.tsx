@@ -5,7 +5,8 @@ import { ExamConfig, ExamQuestion, ExamResult, ExamMode, ExamDifficulty } from '
 import { MathView } from '../components/MathView';
 import { 
   Clock, CheckCircle, AlertTriangle, ArrowRight, ArrowLeft, Bookmark, 
-  RotateCcw, HelpCircle, Trophy, BarChart2, Check, X, ShieldAlert, Award
+  RotateCcw, HelpCircle, Trophy, BarChart2, Check, X, ShieldAlert, Award,
+  Grid, ChevronDown, ChevronUp
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -43,6 +44,7 @@ export const ExamPage: React.FC<ExamPageProps> = ({
 
   // Submit Modal Confirmation
   const [confirmSubmitOpen, setConfirmSubmitOpen] = useState(false);
+  const [mobilePaletteOpen, setMobilePaletteOpen] = useState(false);
 
   // Results State
   const [lastResult, setLastResult] = useState<ExamResult | null>(null);
@@ -192,12 +194,12 @@ export const ExamPage: React.FC<ExamPageProps> = ({
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
       {/* SCREEN 1: CONFIGURATION */}
       {screen === 'config' && (
-        <div className="max-w-3xl mx-auto space-y-6">
-          <div className="bg-gradient-to-r from-slate-900 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl space-y-3">
-            <span className="text-xs font-bold uppercase tracking-wider text-indigo-300">
+        <div className="max-w-3xl mx-auto space-y-4 sm:space-y-6">
+          <div className="bg-gradient-to-r from-slate-900 to-indigo-950 text-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-xl space-y-2 sm:space-y-3">
+            <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-indigo-300">
               Examination Practice Centre
             </span>
-            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+            <h1 className="text-xl sm:text-3xl font-extrabold tracking-tight">
               Unit 1 Examination Assessment
             </h1>
             <p className="text-xs sm:text-sm text-indigo-200/80 leading-relaxed">
@@ -205,8 +207,8 @@ export const ExamPage: React.FC<ExamPageProps> = ({
             </p>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-3">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-sm space-y-4 sm:space-y-6">
+            <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-3">
               Configure Your Assessment
             </h2>
 
@@ -345,87 +347,142 @@ export const ExamPage: React.FC<ExamPageProps> = ({
 
       {/* SCREEN 2: ACTIVE EXAM SESSION */}
       {screen === 'taking' && currentQ && (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {/* Top Bar with Live Timer & Controls */}
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <span className="font-extrabold text-sm text-slate-900 dark:text-white">
-                Question {currentQuestionIndex + 1} of {currentQuestions.length}
-              </span>
-              <span className="text-xs px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 font-bold border border-indigo-200 dark:border-indigo-800">
-                {currentQ.marks} {currentQ.marks === 1 ? 'Mark' : 'Marks'}
-              </span>
-              <span className="text-xs px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 capitalize font-medium">
-                {currentQ.difficulty}
-              </span>
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-3 sm:p-4 shadow-sm space-y-3">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-2 truncate">
+                <span className="font-extrabold text-xs sm:text-sm text-slate-900 dark:text-white shrink-0">
+                  Q {currentQuestionIndex + 1} of {currentQuestions.length}
+                </span>
+                <span className="text-[10px] sm:text-xs px-2 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 font-bold border border-indigo-200 dark:border-indigo-800 shrink-0">
+                  {currentQ.marks} {currentQ.marks === 1 ? 'Mark' : 'Marks'}
+                </span>
+                <span className="text-[10px] sm:text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 capitalize font-medium shrink-0 hidden xs:inline">
+                  {currentQ.difficulty}
+                </span>
+              </div>
+
+              {/* Mobile Palette Toggle Button */}
+              <button
+                onClick={() => setMobilePaletteOpen(o => !o)}
+                className="lg:hidden flex items-center gap-1 px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 min-h-[36px]"
+              >
+                <Grid className="w-3.5 h-3.5 text-indigo-500" />
+                <span>Palette</span>
+                {mobilePaletteOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              </button>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center justify-between gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
               {/* Visible Timer */}
-              <div className={`flex items-center gap-2 px-3 py-1.5 rounded-xl font-mono font-bold text-sm border ${
+              <div className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-xl font-mono font-bold text-xs sm:text-sm border ${
                 timeRemainingSeconds < 120
                   ? 'bg-rose-50 dark:bg-rose-950/50 text-rose-600 border-rose-300 animate-pulse'
                   : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700'
               }`}>
-                <Clock className="w-4 h-4 text-indigo-500" />
+                <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-500 shrink-0" />
                 <span>
                   {Math.floor(timeRemainingSeconds / 60)}:{(timeRemainingSeconds % 60).toString().padStart(2, '0')}
                 </span>
               </div>
 
-              {/* Mark for Review */}
-              <button
-                onClick={handleToggleReview}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition ${
-                  markedForReview[currentQ.id]
-                    ? 'bg-amber-100 dark:bg-amber-950/60 border-amber-300 text-amber-800 dark:text-amber-300'
-                    : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-amber-300'
-                }`}
-              >
-                <Bookmark className="w-3.5 h-3.5" fill={markedForReview[currentQ.id] ? 'currentColor' : 'none'} />
-                <span className="hidden sm:inline">Review</span>
-              </button>
+              <div className="flex items-center gap-2">
+                {/* Mark for Review */}
+                <button
+                  onClick={handleToggleReview}
+                  className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-semibold border transition min-h-[36px] ${
+                    markedForReview[currentQ.id]
+                      ? 'bg-amber-100 dark:bg-amber-950/60 border-amber-300 text-amber-800 dark:text-amber-300'
+                      : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-amber-300'
+                  }`}
+                >
+                  <Bookmark className="w-3.5 h-3.5" fill={markedForReview[currentQ.id] ? 'currentColor' : 'none'} />
+                  <span>Review</span>
+                </button>
 
-              <button
-                onClick={() => setConfirmSubmitOpen(true)}
-                className="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl transition shadow-xs"
-              >
-                Submit Exam
-              </button>
+                <button
+                  onClick={() => setConfirmSubmitOpen(true)}
+                  className="px-3 sm:px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl transition shadow-xs min-h-[36px]"
+                >
+                  Submit
+                </button>
+              </div>
             </div>
+
+            {/* Mobile Expandable Question Palette */}
+            {mobilePaletteOpen && (
+              <div className="lg:hidden pt-3 border-t border-slate-100 dark:border-slate-800 space-y-3 animate-fadeIn">
+                <div className="flex flex-wrap items-center justify-between text-[11px] font-semibold text-slate-500 gap-2">
+                  <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-sm bg-emerald-600 inline-block" /> Answered ({answeredCount})</span>
+                  <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-sm bg-slate-200 dark:bg-slate-700 inline-block" /> Left ({currentQuestions.length - answeredCount})</span>
+                  <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-sm bg-amber-400 inline-block" /> Review</span>
+                </div>
+                <div className="grid grid-cols-5 sm:grid-cols-10 gap-1.5 max-h-48 overflow-y-auto p-0.5">
+                  {currentQuestions.map((q, idx) => {
+                    const isCurrent = currentQuestionIndex === idx;
+                    const isAnswered = userAnswers[q.id] !== undefined && userAnswers[q.id].trim() !== '';
+                    const isReview = markedForReview[q.id];
+
+                    return (
+                      <button
+                        key={q.id}
+                        onClick={() => {
+                          setCurrentQuestionIndex(idx);
+                          setMobilePaletteOpen(false);
+                        }}
+                        className={`h-9 rounded-xl text-xs font-bold transition flex items-center justify-center min-h-[36px] ${
+                          isCurrent
+                            ? 'ring-2 ring-indigo-600 ring-offset-2 ring-offset-white dark:ring-offset-slate-900'
+                            : ''
+                        } ${
+                          isReview
+                            ? 'bg-amber-400 text-slate-900 font-extrabold'
+                            : isAnswered
+                            ? 'bg-emerald-600 text-white'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
+                        }`}
+                      >
+                        {idx + 1}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
 
-          <div className="grid lg:grid-cols-12 gap-6 items-start">
+          <div className="grid lg:grid-cols-12 gap-4 sm:gap-6 items-start">
             {/* Question Workspace */}
-            <main className="lg:col-span-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
-              <div className="space-y-3">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+            <main className="lg:col-span-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-sm space-y-4 sm:space-y-6">
+              <div className="space-y-2 sm:space-y-3">
+                <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
                   Topic: {currentQ.topicName}
                 </span>
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-relaxed">
+                <h3 className="text-sm sm:text-lg font-bold text-slate-900 dark:text-white leading-relaxed">
                   {currentQ.question}
                 </h3>
                 {currentQ.latexQuestion && (
-                  <div className="p-3 bg-slate-100 dark:bg-slate-950/80 rounded-xl border border-slate-200 dark:border-slate-800 text-center text-indigo-950 dark:text-indigo-200 font-medium">
+                  <div className="p-3 bg-slate-100 dark:bg-slate-950/80 rounded-xl border border-slate-200 dark:border-slate-800 text-center text-indigo-950 dark:text-indigo-200 font-medium overflow-x-auto scrollbar-none">
                     <MathView math={currentQ.latexQuestion} block />
                   </div>
                 )}
               </div>
 
               {/* Answer Input Area based on question type */}
-              <div className="space-y-4 pt-2">
+              <div className="space-y-3 pt-1">
                 <label className="text-xs font-bold text-slate-500 uppercase">Your Answer</label>
 
                 {/* MCQ / True-False / Fill-Formula Options */}
                 {currentQ.options ? (
-                  <div className="space-y-2.5">
+                  <div className="space-y-2">
                     {currentQ.options.map((opt, optIdx) => {
                       const isSelected = userAnswers[currentQ.id] === optIdx.toString();
                       return (
                         <button
                           key={optIdx}
                           onClick={() => handleSelectAnswer(optIdx.toString())}
-                          className={`w-full p-4 rounded-2xl text-left text-xs sm:text-sm font-semibold border-2 transition flex items-center gap-3 ${
+                          className={`w-full p-3.5 sm:p-4 rounded-xl sm:rounded-2xl text-left text-xs sm:text-sm font-semibold border-2 transition flex items-center gap-3 min-h-[48px] ${
                             isSelected
                               ? 'border-indigo-600 bg-indigo-50/60 dark:bg-indigo-950/40 text-indigo-950 dark:text-indigo-200 ring-2 ring-indigo-400/30'
                               : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200'
@@ -446,10 +503,12 @@ export const ExamPage: React.FC<ExamPageProps> = ({
                   <div className="space-y-2">
                     <input
                       type="text"
+                      inputMode="decimal"
+                      autoComplete="off"
                       placeholder="Enter integer or numeric result (e.g. 120 or -80)..."
                       value={userAnswers[currentQ.id] || ''}
                       onChange={e => handleSelectAnswer(e.target.value)}
-                      className="w-full p-4 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-2xl font-mono text-base text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-indigo-600"
+                      className="w-full p-3.5 sm:p-4 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl sm:rounded-2xl font-mono text-base text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-indigo-600"
                     />
                     <span className="text-[11px] text-slate-400">
                       Standard integer or simplified numerical format.
@@ -467,29 +526,29 @@ export const ExamPage: React.FC<ExamPageProps> = ({
               )}
 
               {/* Bottom Nav Controls */}
-              <div className="flex items-center justify-between pt-6 border-t border-slate-100 dark:border-slate-800">
+              <div className="flex items-center justify-between gap-2 pt-4 sm:pt-6 border-t border-slate-100 dark:border-slate-800">
                 <button
                   disabled={currentQuestionIndex === 0}
                   onClick={() => setCurrentQuestionIndex(i => i - 1)}
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-indigo-400 disabled:opacity-40 text-xs font-bold text-slate-700 dark:text-slate-300 transition"
+                  className="flex items-center gap-1.5 px-3 sm:px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-indigo-400 disabled:opacity-40 text-xs font-bold text-slate-700 dark:text-slate-300 transition active:scale-95 min-h-[44px]"
                 >
-                  <ArrowLeft className="w-4 h-4" /> Previous
+                  <ArrowLeft className="w-4 h-4" /> <span>Prev</span>
                 </button>
 
                 <div className="flex items-center gap-2">
                   {userAnswers[currentQ.id] && (
                     <button
                       onClick={() => handleSelectAnswer('')}
-                      className="text-xs text-slate-400 hover:text-slate-600 font-semibold px-2"
+                      className="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 font-semibold px-2 py-1 min-h-[36px]"
                     >
-                      Clear Answer
+                      Clear
                     </button>
                   )}
 
                   {currentQuestionIndex < currentQuestions.length - 1 ? (
                     <button
                       onClick={() => setCurrentQuestionIndex(i => i + 1)}
-                      className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition shadow-sm"
+                      className="flex items-center gap-1.5 px-4 sm:px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition shadow-sm active:scale-95 min-h-[44px]"
                     >
                       <span>Next</span>
                       <ArrowRight className="w-4 h-4" />
@@ -497,9 +556,9 @@ export const ExamPage: React.FC<ExamPageProps> = ({
                   ) : (
                     <button
                       onClick={() => setConfirmSubmitOpen(true)}
-                      className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition shadow-sm"
+                      className="flex items-center gap-1.5 px-4 sm:px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition shadow-sm active:scale-95 min-h-[44px]"
                     >
-                      <CheckCircle className="w-4 h-4" /> Submit Exam
+                      <CheckCircle className="w-4 h-4" /> <span>Submit</span>
                     </button>
                   )}
                 </div>
@@ -610,73 +669,73 @@ export const ExamPage: React.FC<ExamPageProps> = ({
 
       {/* SCREEN 3: RESULTS PAGE */}
       {screen === 'results' && lastResult && (
-        <div className="max-w-4xl mx-auto space-y-6">
+        <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6">
           {/* Score Header Card */}
-          <div className="bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
-            <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 text-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-xl space-y-4 sm:space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-indigo-300">
+                <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-indigo-300">
                   Performance Evaluation
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-extrabold">Examination Results</h2>
+                <h2 className="text-xl sm:text-3xl font-extrabold">Examination Results</h2>
                 <p className="text-xs text-indigo-200">
                   Completed in {Math.floor(lastResult.timeSpentSeconds / 60)}m {lastResult.timeSpentSeconds % 60}s • {lastResult.mode.toUpperCase()} MODE
                 </p>
               </div>
 
-              <div className="text-center bg-white/10 backdrop-blur-md px-6 py-4 rounded-2xl border border-white/20">
-                <div className="text-3xl sm:text-4xl font-black">{lastResult.percentage}%</div>
-                <div className="text-xs font-bold text-indigo-200">
+              <div className="text-center bg-white/10 backdrop-blur-md px-5 py-3 sm:px-6 sm:py-4 rounded-2xl border border-white/20 self-start sm:self-auto">
+                <div className="text-2xl sm:text-4xl font-black">{lastResult.percentage}%</div>
+                <div className="text-[11px] sm:text-xs font-bold text-indigo-200">
                   {lastResult.totalMarks} / {lastResult.maxMarks} Marks
                 </div>
               </div>
             </div>
 
             {/* Metrics Grid */}
-            <div className="grid grid-cols-3 gap-3 pt-2 text-center text-xs font-bold">
-              <div className="bg-emerald-500/20 border border-emerald-400/30 p-3 rounded-xl">
-                <div className="text-emerald-300 text-lg font-black">{lastResult.correctCount}</div>
-                <div className="text-emerald-200">Correct</div>
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 pt-1 text-center text-xs font-bold">
+              <div className="bg-emerald-500/20 border border-emerald-400/30 p-2 sm:p-3 rounded-xl">
+                <div className="text-emerald-300 text-base sm:text-lg font-black">{lastResult.correctCount}</div>
+                <div className="text-emerald-200 text-[11px] sm:text-xs">Correct</div>
               </div>
-              <div className="bg-rose-500/20 border border-rose-400/30 p-3 rounded-xl">
-                <div className="text-rose-300 text-lg font-black">{lastResult.incorrectCount}</div>
-                <div className="text-rose-200">Incorrect</div>
+              <div className="bg-rose-500/20 border border-rose-400/30 p-2 sm:p-3 rounded-xl">
+                <div className="text-rose-300 text-base sm:text-lg font-black">{lastResult.incorrectCount}</div>
+                <div className="text-rose-200 text-[11px] sm:text-xs">Incorrect</div>
               </div>
-              <div className="bg-slate-500/20 border border-slate-400/30 p-3 rounded-xl">
-                <div className="text-slate-300 text-lg font-black">{lastResult.unansweredCount}</div>
-                <div className="text-slate-200">Unanswered</div>
+              <div className="bg-slate-500/20 border border-slate-400/30 p-2 sm:p-3 rounded-xl">
+                <div className="text-slate-300 text-base sm:text-lg font-black">{lastResult.unansweredCount}</div>
+                <div className="text-slate-200 text-[11px] sm:text-xs">Skipped</div>
               </div>
             </div>
           </div>
 
           {/* Action Navigation Buttons */}
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
             {lastResult.incorrectCount > 0 && (
               <button
                 onClick={handleRetryIncorrect}
-                className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold text-xs flex items-center gap-2 shadow-sm transition"
+                className="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition min-h-[44px]"
               >
-                <RotateCcw className="w-4 h-4" /> Retry Incorrect Questions ({lastResult.incorrectCount})
+                <RotateCcw className="w-4 h-4" /> Retry Incorrect ({lastResult.incorrectCount})
               </button>
             )}
 
             <button
               onClick={() => setScreen('config')}
-              className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center gap-2 transition"
+              className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition min-h-[44px]"
             >
               Take Another Exam
             </button>
 
             <button
               onClick={onOpenQuickDrawer}
-              className="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs flex items-center gap-2 hover:bg-slate-200 transition"
+              className="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-2 hover:bg-slate-200 transition min-h-[44px]"
             >
               <Bookmark className="w-4 h-4" /> Review Formulas
             </button>
           </div>
 
           {/* Topic-Wise Performance */}
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-4">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-sm space-y-4">
             <h3 className="text-sm font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400">
               Topic-Wise Accuracy Breakdown
             </h3>

@@ -23,7 +23,7 @@ export const MathView: React.FC<MathViewProps> = ({ math, block = false, classNa
   if (block) {
     return (
       <div 
-        className={`overflow-x-auto py-1 max-w-full text-center scrollbar-thin ${className}`}
+        className={`overflow-x-auto py-1 max-w-full text-center scrollbar-none touch-pan-x ${className}`}
         dangerouslySetInnerHTML={{ __html: html }}
       />
     );
@@ -31,7 +31,7 @@ export const MathView: React.FC<MathViewProps> = ({ math, block = false, classNa
 
   return (
     <span 
-      className={`inline-block align-middle max-w-full overflow-x-auto ${className}`}
+      className={`inline-block align-middle max-w-full overflow-x-auto scrollbar-none touch-pan-x ${className}`}
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );

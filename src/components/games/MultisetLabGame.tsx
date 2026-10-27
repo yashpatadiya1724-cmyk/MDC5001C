@@ -84,49 +84,50 @@ export const MultisetLabGame: React.FC<{ onBack: () => void; onScoreUpdate: (sco
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-4 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-4 bg-white dark:bg-slate-900 p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
         <button
           onClick={onBack}
-          className="flex items-center gap-2 px-3 py-2 text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 bg-slate-100 dark:bg-slate-800 rounded-xl transition"
+          className="flex items-center gap-1.5 px-2.5 sm:px-3 py-2 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 bg-slate-100 dark:bg-slate-800 rounded-xl transition min-h-[40px]"
         >
-          <ArrowLeft className="w-4 h-4" /> Back to Games
+          <ArrowLeft className="w-4 h-4" /> <span>Back</span>
         </button>
 
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 px-3 py-1.5 rounded-xl font-bold text-sm border border-indigo-200 dark:border-indigo-800">
-            <Trophy className="w-4 h-4" /> Score: {score}
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 px-2.5 sm:px-3 py-1.5 rounded-xl font-bold text-xs sm:text-sm border border-indigo-200 dark:border-indigo-800">
+            <Trophy className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> <span>{score}</span>
           </div>
           <button
             onClick={() => {
               setCreatedAnagrams([]);
               setStatusMessage(null);
             }}
-            className="p-2 text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition"
+            className="p-2 text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition min-h-[40px] min-w-[40px] flex items-center justify-center"
             title="Reset notebook"
+            aria-label="Reset notebook"
           >
             <RotateCcw className="w-4 h-4" />
           </button>
         </div>
       </div>
 
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-6">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div className="space-y-1">
-            <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-sm space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="space-y-0.5 sm:space-y-1">
+            <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
               Multiset Permutation Lab
             </span>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+            <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
               Target Multiset: {challenge.word}
             </h3>
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex gap-1.5 sm:gap-2 overflow-x-auto scrollbar-none pb-1">
             {WORDS.map((w, idx) => (
               <button
                 key={w.word}
                 onClick={() => handleSwitchWord(idx)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition border ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition border shrink-0 min-h-[36px] ${
                   activeWordIdx === idx
                     ? 'bg-indigo-600 text-white border-indigo-600'
                     : 'bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700'
@@ -139,34 +140,35 @@ export const MultisetLabGame: React.FC<{ onBack: () => void; onScoreUpdate: (sco
         </div>
 
         {/* Formula Breakdown Banner */}
-        <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="text-xs space-y-1">
+        <div className="p-3 sm:p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
+          <div className="text-xs space-y-1 text-center md:text-left">
             <span className="font-bold text-slate-700 dark:text-slate-300">Theoretical Permutations Formula:</span>
             <div className="text-slate-500">
-              Identical letters are indistinguishable: swapping two identical letters yields the exact same word!
+              Identical letters are indistinguishable: swapping duplicates yields the exact same word!
             </div>
           </div>
-          <div className="text-sm font-bold text-indigo-600 dark:text-indigo-400">
+          <div className="text-xs sm:text-sm font-bold text-indigo-600 dark:text-indigo-400 overflow-x-auto scrollbar-none">
             <MathView math={challenge.formulaLatex} />
           </div>
         </div>
 
         {/* Interactive Letter Slots */}
-        <div className="space-y-3">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">
-            Click any two adjacent letters to swap them:
+        <div className="space-y-2 sm:space-y-3">
+          <span className="text-[10px] sm:text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">
+            Tap adjacent arrows to swap letters:
           </span>
-          <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 py-4">
+          <div className="overflow-x-auto scrollbar-none py-2 px-1 flex items-center justify-start sm:justify-center gap-1 sm:gap-2">
             {currentSlots.map((ch, idx) => (
-              <div key={idx} className="flex items-center gap-1">
-                <div className="w-12 h-14 md:w-14 md:h-16 rounded-2xl bg-indigo-600 text-white font-extrabold text-xl md:text-2xl flex items-center justify-center shadow-md select-none">
+              <div key={idx} className="flex items-center gap-1 shrink-0">
+                <div className="w-10 h-12 sm:w-12 sm:h-14 md:w-14 md:h-16 rounded-xl sm:rounded-2xl bg-indigo-600 text-white font-extrabold text-xl md:text-2xl flex items-center justify-center shadow-md select-none shrink-0">
                   {ch}
                 </div>
                 {idx < currentSlots.length - 1 && (
                   <button
                     onClick={() => handleSwap(idx, idx + 1)}
-                    className="p-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 text-slate-500 hover:text-indigo-600 transition"
+                    className="p-1 sm:p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 text-slate-500 hover:text-indigo-600 transition min-w-[26px] min-h-[36px] flex items-center justify-center text-xs font-bold shrink-0"
                     title={`Swap ${ch} and ${currentSlots[idx + 1]}`}
+                    aria-label={`Swap letter ${idx + 1} and ${idx + 2}`}
                   >
                     ⇄
                   </button>
@@ -177,16 +179,16 @@ export const MultisetLabGame: React.FC<{ onBack: () => void; onScoreUpdate: (sco
         </div>
 
         {/* Controls */}
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
           <button
             onClick={handleSaveArrangement}
-            className="flex-1 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition text-sm flex items-center justify-center gap-2 shadow-md shadow-indigo-500/20"
+            className="flex-1 py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md shadow-indigo-500/20 min-h-[44px]"
           >
-            <Sparkles className="w-4 h-4" /> Register Arrangement "{currentSlots.join('')}"
+            <Sparkles className="w-4 h-4" /> Register "{currentSlots.join('')}"
           </button>
           <button
             onClick={handleShuffle}
-            className="px-4 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-bold rounded-xl transition text-sm flex items-center gap-2"
+            className="px-4 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-bold rounded-xl transition text-xs sm:text-sm flex items-center justify-center gap-2 min-h-[44px]"
           >
             <Shuffle className="w-4 h-4" /> Shuffle
           </button>

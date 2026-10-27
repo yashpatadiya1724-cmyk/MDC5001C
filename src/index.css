@@ -22,11 +22,36 @@
   overflow-y: hidden;
   padding: 0.5rem 0;
   max-width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 .katex {
   font-size: 1.15em;
   text-rendering: auto;
+}
+
+@media (max-width: 640px) {
+  .katex {
+    font-size: 0.95em;
+  }
+}
+
+/* Hide scrollbars while allowing touch scrolling */
+.no-scrollbar::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar,
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Touch callout and tap highlight adjustments for mobile */
+@media (hover: none) and (pointer: coarse) {
+  button, a {
+    -webkit-tap-highlight-color: transparent;
+  }
 }
 
 /* Custom scrollbar for dense topic sidebars and palette */

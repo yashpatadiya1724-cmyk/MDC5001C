@@ -155,70 +155,70 @@ export const GamesPage: React.FC<GamesPageProps> = ({
   // Render the currently selected game if active
   if (activeGameId === 'game-1') {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
+      <div className="max-w-4xl mx-auto px-3 sm:px-6 py-4 sm:py-6">
         <FormulaMatchGame onBack={handleReturnToHub} onScoreUpdate={handleGameScore} />
       </div>
     );
   }
   if (activeGameId === 'game-2') {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
+      <div className="max-w-4xl mx-auto px-3 sm:px-6 py-4 sm:py-6">
         <PermVsCombGame onBack={handleReturnToHub} onScoreUpdate={handleGameScore} />
       </div>
     );
   }
   if (activeGameId === 'game-3') {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
+      <div className="max-w-4xl mx-auto px-3 sm:px-6 py-4 sm:py-6">
         <CountingQuestGame onBack={handleReturnToHub} onScoreUpdate={handleGameScore} />
       </div>
     );
   }
   if (activeGameId === 'game-4') {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
+      <div className="max-w-4xl mx-auto px-3 sm:px-6 py-4 sm:py-6">
         <PigeonholePuzzleGame onBack={handleReturnToHub} onScoreUpdate={handleGameScore} />
       </div>
     );
   }
   if (activeGameId === 'game-5') {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
+      <div className="max-w-4xl mx-auto px-3 sm:px-6 py-4 sm:py-6">
         <BinomialBuilderGame onBack={handleReturnToHub} onScoreUpdate={handleGameScore} />
       </div>
     );
   }
   if (activeGameId === 'game-6') {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
+      <div className="max-w-4xl mx-auto px-3 sm:px-6 py-4 sm:py-6">
         <InclusionExclusionGame onBack={handleReturnToHub} onScoreUpdate={handleGameScore} />
       </div>
     );
   }
   if (activeGameId === 'game-7') {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
+      <div className="max-w-4xl mx-auto px-3 sm:px-6 py-4 sm:py-6">
         <DerangementDeliveryGame onBack={handleReturnToHub} onScoreUpdate={handleGameScore} />
       </div>
     );
   }
   if (activeGameId === 'game-8') {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
+      <div className="max-w-4xl mx-auto px-3 sm:px-6 py-4 sm:py-6">
         <MultisetLabGame onBack={handleReturnToHub} onScoreUpdate={handleGameScore} />
       </div>
     );
   }
   if (activeGameId === 'game-9') {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
+      <div className="max-w-4xl mx-auto px-3 sm:px-6 py-4 sm:py-6">
         <PartitionBuilderGame onBack={handleReturnToHub} onScoreUpdate={handleGameScore} />
       </div>
     );
   }
   if (activeGameId === 'game-10') {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
+      <div className="max-w-4xl mx-auto px-3 sm:px-6 py-4 sm:py-6">
         <RecurrenceChallengeGame onBack={handleReturnToHub} onScoreUpdate={handleGameScore} />
       </div>
     );
@@ -226,42 +226,42 @@ export const GamesPage: React.FC<GamesPageProps> = ({
 
   // DEFAULT VIEW: GAME ZONE HUB
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-6 sm:space-y-8">
       {/* Hero Banner */}
-      <div className="bg-gradient-to-r from-purple-950 via-indigo-900 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
-        <div className="relative z-10 space-y-4 max-w-3xl">
+      <div className="bg-gradient-to-r from-purple-950 via-indigo-900 to-slate-900 text-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-xl relative overflow-hidden">
+        <div className="relative z-10 space-y-3 sm:space-y-4 max-w-3xl">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="px-3 py-1 rounded-full text-xs font-bold bg-white/10 backdrop-blur-md text-purple-200 border border-white/20 flex items-center gap-1.5">
+            <span className="px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold bg-white/10 backdrop-blur-md text-purple-200 border border-white/20 flex items-center gap-1.5">
               <Gamepad2 className="w-3.5 h-3.5" /> 10 Educational Math Games
             </span>
-            <span className="text-xs font-medium text-purple-200">
+            <span className="text-[11px] sm:text-xs font-medium text-purple-200">
               MDC5001C • Unit 1 Interactive Zone
             </span>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight">
+          <h1 className="text-xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight">
             Combinatorial Math Arcade
           </h1>
-          <p className="text-sm sm:text-base text-purple-100/90 leading-relaxed">
+          <p className="text-xs sm:text-base text-purple-100/90 leading-relaxed">
             Reinforce syllabus concepts through real mathematical simulations, puzzle logic, and formula discovery. Earn stars, beat high scores, and master discrete principles intuitively!
           </p>
 
-          <div className="flex items-center gap-6 pt-2">
-            <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/20">
-              <Trophy className="w-5 h-5 text-amber-400" />
+          <div className="flex flex-wrap items-center gap-3 sm:gap-6 pt-1 sm:pt-2">
+            <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 sm:px-4 py-2 rounded-2xl border border-white/20">
+              <Trophy className="w-4 sm:w-5 h-4 sm:h-5 text-amber-400" />
               <div className="text-xs">
-                <span className="font-bold text-base block">{totalPoints}</span>
-                <span className="text-purple-200">Total Arcade Points</span>
+                <span className="font-bold text-sm sm:text-base block">{totalPoints}</span>
+                <span className="text-[10px] sm:text-xs text-purple-200">Arcade Points</span>
               </div>
             </div>
 
-            <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/20">
-              <Sparkles className="w-5 h-5 text-emerald-400" />
+            <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 sm:px-4 py-2 rounded-2xl border border-white/20">
+              <Sparkles className="w-4 sm:w-5 h-4 sm:h-5 text-emerald-400" />
               <div className="text-xs">
-                <span className="font-bold text-base block">
+                <span className="font-bold text-sm sm:text-base block">
                   {Object.keys(gameScores).length} / 10
                 </span>
-                <span className="text-purple-200">Games Played</span>
+                <span className="text-[10px] sm:text-xs text-purple-200">Games Played</span>
               </div>
             </div>
           </div>
@@ -269,15 +269,15 @@ export const GamesPage: React.FC<GamesPageProps> = ({
       </div>
 
       {/* Grid of 10 Games */}
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white">
+          <h2 className="text-base sm:text-xl font-extrabold text-slate-900 dark:text-white">
             Select an Interactive Game
           </h2>
-          <span className="text-xs text-slate-500 font-semibold">10 Games Available</span>
+          <span className="text-xs text-slate-500 font-semibold">10 Games</span>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
           {ALL_GAMES.map(g => {
             const scoreRec = gameScores[g.id];
             const highScore = scoreRec?.highScore || 0;

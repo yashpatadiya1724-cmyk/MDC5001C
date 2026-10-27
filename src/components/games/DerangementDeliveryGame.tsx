@@ -113,51 +113,52 @@ export const DerangementDeliveryGame: React.FC<{ onBack: () => void; onScoreUpda
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-4 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-4 bg-white dark:bg-slate-900 p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
         <button
           onClick={onBack}
-          className="flex items-center gap-2 px-3 py-2 text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 bg-slate-100 dark:bg-slate-800 rounded-xl transition"
+          className="flex items-center gap-1.5 px-2.5 sm:px-3 py-2 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 bg-slate-100 dark:bg-slate-800 rounded-xl transition min-h-[40px]"
         >
-          <ArrowLeft className="w-4 h-4" /> Back to Games
+          <ArrowLeft className="w-4 h-4" /> <span>Back</span>
         </button>
 
-        <div className="flex items-center gap-4">
-          <span className="text-xs font-semibold px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full">
-            Discovered: {discoveredDerangements.length} / {totalDerangements}
+        <div className="flex items-center gap-2 sm:gap-4">
+          <span className="text-xs font-semibold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full">
+            {discoveredDerangements.length} / {totalDerangements}
           </span>
-          <div className="flex items-center gap-2 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 px-3 py-1.5 rounded-xl font-bold text-sm border border-indigo-200 dark:border-indigo-800">
-            <Trophy className="w-4 h-4" /> Score: {score}
+          <div className="flex items-center gap-1.5 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 px-2.5 sm:px-3 py-1.5 rounded-xl font-bold text-xs sm:text-sm border border-indigo-200 dark:border-indigo-800">
+            <Trophy className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> <span>{score}</span>
           </div>
           <button
             onClick={handleResetPlacement}
-            className="p-2 text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition"
+            className="p-2 text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition min-h-[40px] min-w-[40px] flex items-center justify-center"
             title="Clear Current Mailboxes"
+            aria-label="Clear Current Mailboxes"
           >
             <RotateCcw className="w-4 h-4" />
           </button>
         </div>
       </div>
 
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-6">
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-sm space-y-4 sm:space-y-6">
+        <div className="space-y-1.5 sm:space-y-2">
+          <div className="flex flex-col xs:flex-row xs:items-center justify-between gap-1">
+            <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
               Derangement Delivery: D(4) = 9
             </span>
-            <div className="text-xs font-mono font-semibold text-slate-500">
+            <div className="text-[11px] sm:text-xs font-mono font-semibold text-slate-500 overflow-x-auto scrollbar-none">
               <MathView math="D(n) = n! \sum_{k=0}^n \frac{(-1)^k}{k!}" />
             </div>
           </div>
-          <p className="text-sm text-slate-600 dark:text-slate-400">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
             Tap a letter below, then tap a mailbox to deliver it. <strong>Goal:</strong> deliver all 4 letters such that <em>no letter goes to its own matching numbered mailbox!</em>
           </p>
         </div>
 
         {/* Mailboxes (Drop Targets) */}
         <div className="space-y-2">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Mailboxes (Destinations)</span>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <span className="text-[10px] sm:text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Mailboxes (Destinations)</span>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
             {items.map((m, idx) => {
               const placedId = placement[idx];
               const placedLetter = items.find(it => it.id === placedId);
@@ -167,7 +168,7 @@ export const DerangementDeliveryGame: React.FC<{ onBack: () => void; onScoreUpda
                 <div
                   key={m.id}
                   onClick={() => handlePlaceInMailbox(idx)}
-                  className={`p-4 rounded-xl border-2 border-dashed flex flex-col items-center justify-center text-center cursor-pointer transition min-h-[110px] ${
+                  className={`p-3 sm:p-4 rounded-xl border-2 border-dashed flex flex-col items-center justify-center text-center cursor-pointer transition min-h-[95px] sm:min-h-[110px] ${
                     isMatchError
                       ? 'border-rose-500 bg-rose-50/70 dark:bg-rose-950/40 ring-2 ring-rose-400/40'
                       : placedLetter
@@ -175,10 +176,10 @@ export const DerangementDeliveryGame: React.FC<{ onBack: () => void; onScoreUpda
                       : 'border-slate-300 dark:border-slate-700 hover:border-indigo-400 bg-slate-50/50 dark:bg-slate-800/50'
                   }`}
                 >
-                  <span className="text-xs font-bold text-slate-500 mb-1">{m.mailbox}</span>
+                  <span className="text-[11px] sm:text-xs font-bold text-slate-500 mb-1">{m.mailbox}</span>
                   {placedLetter ? (
                     <div className="space-y-1">
-                      <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-indigo-600 text-white inline-block">
+                      <span className="text-xs font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg bg-indigo-600 text-white inline-block">
                         {placedLetter.letter}
                       </span>
                       {isMatchError && (
@@ -188,7 +189,7 @@ export const DerangementDeliveryGame: React.FC<{ onBack: () => void; onScoreUpda
                       )}
                     </div>
                   ) : (
-                    <span className="text-xs text-slate-400">Tap to place letter</span>
+                    <span className="text-[11px] sm:text-xs text-slate-400">Tap to place</span>
                   )}
                 </div>
               );
@@ -198,8 +199,8 @@ export const DerangementDeliveryGame: React.FC<{ onBack: () => void; onScoreUpda
 
         {/* Available Letters */}
         <div className="space-y-2">
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Unplaced / Available Letters</span>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <span className="text-[10px] sm:text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Unplaced / Available Letters</span>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
             {items.map(letter => {
               const isPlaced = placement.includes(letter.id);
               const isSelected = selectedLetterId === letter.id;
@@ -209,7 +210,7 @@ export const DerangementDeliveryGame: React.FC<{ onBack: () => void; onScoreUpda
                   key={letter.id}
                   disabled={isPlaced}
                   onClick={() => handleSelectLetter(letter.id)}
-                  className={`p-3 rounded-xl border font-bold text-xs md:text-sm flex items-center justify-center gap-2 transition ${
+                  className={`p-2.5 sm:p-3 rounded-xl border font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 sm:gap-2 transition min-h-[44px] ${
                     isPlaced
                       ? 'opacity-40 border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 line-through cursor-not-allowed'
                       : isSelected
@@ -217,8 +218,8 @@ export const DerangementDeliveryGame: React.FC<{ onBack: () => void; onScoreUpda
                       : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:border-indigo-400'
                   }`}
                 >
-                  <Mail className="w-4 h-4" />
-                  {letter.letter}
+                  <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <span className="truncate">{letter.letter}</span>
                 </button>
               );
             })}
@@ -226,18 +227,18 @@ export const DerangementDeliveryGame: React.FC<{ onBack: () => void; onScoreUpda
         </div>
 
         {/* Action Button & Feedback */}
-        <div className="space-y-4">
-          <div className="flex gap-3">
+        <div className="space-y-3 sm:space-y-4">
+          <div className="flex gap-2 sm:gap-3">
             <button
               onClick={handleVerifyDelivery}
               disabled={placement.includes(null)}
-              className="flex-1 py-3 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-bold rounded-xl transition shadow-md shadow-indigo-500/20 text-sm"
+              className="flex-1 py-3 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-bold rounded-xl transition shadow-md shadow-indigo-500/20 text-xs sm:text-sm min-h-[44px]"
             >
               Verify Derangement
             </button>
             <button
               onClick={handleResetPlacement}
-              className="px-4 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-bold rounded-xl text-sm transition"
+              className="px-3 sm:px-4 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-bold rounded-xl text-xs sm:text-sm transition min-h-[44px]"
             >
               Clear
             </button>

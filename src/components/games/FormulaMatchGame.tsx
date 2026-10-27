@@ -102,30 +102,31 @@ export const FormulaMatchGame: React.FC<{ onBack: () => void; onScoreUpdate: (sc
   const isCompleted = matchedPairIds.length === 6 && cards.length > 0;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Top Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+      <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-4 bg-white dark:bg-slate-900 p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
         <button
           onClick={onBack}
-          className="flex items-center gap-2 px-3 py-2 text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 bg-slate-100 dark:bg-slate-800 rounded-xl transition"
+          className="flex items-center gap-1.5 px-2.5 sm:px-3 py-2 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 bg-slate-100 dark:bg-slate-800 rounded-xl transition min-h-[40px]"
         >
-          <ArrowLeft className="w-4 h-4" /> Back to Games
+          <ArrowLeft className="w-4 h-4" /> <span>Back</span>
         </button>
 
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300 font-medium text-sm">
-            <Clock className="w-4 h-4 text-indigo-500" />
+        <div className="flex items-center gap-2 sm:gap-4">
+          <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 font-medium text-xs sm:text-sm bg-slate-100 dark:bg-slate-800 px-2.5 py-1.5 rounded-xl">
+            <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-500" />
             <span>{Math.floor(timerSeconds / 60)}:{(timerSeconds % 60).toString().padStart(2, '0')}</span>
           </div>
 
-          <div className="flex items-center gap-2 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 px-3 py-1.5 rounded-xl font-bold text-sm border border-indigo-200 dark:border-indigo-800">
-            <Trophy className="w-4 h-4" /> Score: {score}
+          <div className="flex items-center gap-1.5 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 px-2.5 sm:px-3 py-1.5 rounded-xl font-bold text-xs sm:text-sm border border-indigo-200 dark:border-indigo-800">
+            <Trophy className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> <span>{score}</span>
           </div>
 
           <button
             onClick={initGame}
-            className="p-2 text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition"
+            className="p-2 text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition min-h-[40px] min-w-[40px] flex items-center justify-center"
             title="Restart Game"
+            aria-label="Restart Game"
           >
             <RotateCcw className="w-4 h-4" />
           </button>
@@ -133,21 +134,21 @@ export const FormulaMatchGame: React.FC<{ onBack: () => void; onScoreUpdate: (sc
       </div>
 
       {/* Instructions */}
-      <div className="bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/50 p-4 rounded-xl text-sm text-slate-700 dark:text-slate-300 flex items-start gap-3">
-        <span className="p-1.5 bg-indigo-600 text-white rounded-lg font-bold text-xs">TIP</span>
-        <p>Tap one formula card and one formula name card to connect them. Matched pairs lock in green and earn 20 points each!</p>
+      <div className="bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/50 p-3 sm:p-4 rounded-xl text-xs sm:text-sm text-slate-700 dark:text-slate-300 flex items-start gap-2.5">
+        <span className="p-1 px-1.5 bg-indigo-600 text-white rounded-md font-bold text-[10px] shrink-0">TIP</span>
+        <p>Tap one formula card and one formula name card to connect them. Matched pairs lock in green and earn 20 points!</p>
       </div>
 
       {/* Explanation Banner */}
       {lastMatchExplanation && (
-        <div className="bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 p-3 rounded-xl flex items-center gap-2.5 text-xs md:text-sm text-emerald-800 dark:text-emerald-300 animate-fadeIn">
+        <div className="bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 p-3 rounded-xl flex items-center gap-2 text-xs sm:text-sm text-emerald-800 dark:text-emerald-300 animate-fadeIn">
           <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
           <span>{lastMatchExplanation}</span>
         </div>
       )}
 
       {/* Cards Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5 sm:gap-3 md:gap-4">
         {cards.map(card => {
           const isMatched = matchedPairIds.includes(card.pairId);
           const isSelected = selectedCards.some(c => c.id === card.id);
@@ -158,7 +159,7 @@ export const FormulaMatchGame: React.FC<{ onBack: () => void; onScoreUpdate: (sc
               key={card.id}
               onClick={() => handleCardClick(card)}
               disabled={isMatched}
-              className={`p-4 min-h-[100px] md:min-h-[120px] rounded-2xl flex flex-col items-center justify-center text-center transition-all select-none border-2 ${
+              className={`p-2.5 sm:p-4 min-h-[85px] sm:min-h-[110px] rounded-xl sm:rounded-2xl flex flex-col items-center justify-center text-center transition-all select-none border-2 ${
                 isMatched
                   ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-500/60 text-emerald-700 dark:text-emerald-300 opacity-80 cursor-default scale-95'
                   : isError
@@ -169,17 +170,17 @@ export const FormulaMatchGame: React.FC<{ onBack: () => void; onScoreUpdate: (sc
               }`}
             >
               {isMatched && (
-                <CheckCircle2 className="w-4 h-4 text-emerald-500 mb-1" />
+                <CheckCircle2 className="w-4 h-4 text-emerald-500 mb-1 shrink-0" />
               )}
               {isError && (
-                <XCircle className="w-4 h-4 text-rose-500 mb-1" />
+                <XCircle className="w-4 h-4 text-rose-500 mb-1 shrink-0" />
               )}
               {card.isMath ? (
-                <div className="text-sm md:text-base font-semibold">
+                <div className="w-full text-xs sm:text-sm md:text-base font-semibold overflow-x-auto scrollbar-none py-1">
                   <MathView math={card.content} />
                 </div>
               ) : (
-                <span className="text-xs md:text-sm font-semibold">{card.content}</span>
+                <span className="text-[11px] sm:text-xs md:text-sm font-semibold leading-tight line-clamp-3">{card.content}</span>
               )}
             </button>
           );

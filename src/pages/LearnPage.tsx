@@ -113,29 +113,29 @@ export const LearnPage: React.FC<LearnPageProps> = ({
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-4 sm:space-y-6">
       {/* Top Banner / Progress Header */}
-      <div className="bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
-        <div className="relative z-10 space-y-4 max-w-3xl">
+      <div className="bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 text-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-xl relative overflow-hidden">
+        <div className="relative z-10 space-y-3 sm:space-y-4 max-w-3xl">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="px-3 py-1 rounded-full text-xs font-bold bg-white/10 backdrop-blur-md text-indigo-200 border border-white/20">
+            <span className="px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold bg-white/10 backdrop-blur-md text-indigo-200 border border-white/20">
               Unit 1 Syllabus
             </span>
-            <span className="text-xs font-medium text-indigo-200">
+            <span className="text-[11px] sm:text-xs font-medium text-indigo-200">
               MSc IT / MCA • Semester 1
             </span>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight">
+          <h1 className="text-xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight">
             Combinatorics & Discrete Counting
           </h1>
-          <p className="text-sm sm:text-base text-indigo-100/90 leading-relaxed">
+          <p className="text-xs sm:text-base text-indigo-100/90 leading-relaxed">
             Master permutations, combinations, pigeonhole bounds, binomial expansions, derangements, multisets, partitions, and recurrence relations.
           </p>
 
           {/* Progress Bar */}
-          <div className="space-y-2 pt-2">
-            <div className="flex justify-between items-center text-xs font-bold text-indigo-200">
+          <div className="space-y-1.5 pt-1 sm:pt-2">
+            <div className="flex flex-col xs:flex-row xs:items-center justify-between text-xs font-bold text-indigo-200 gap-1">
               <span>Overall Course Completion</span>
               <span>{completedTopics.length} of {UNIT1_TOPICS.length} Topics ({completionPercentage}%)</span>
             </div>
@@ -150,92 +150,168 @@ export const LearnPage: React.FC<LearnPageProps> = ({
       </div>
 
       {/* Main Tab Controls: Lesson / Formula Flashcards / Revise Mistakes */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-3">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-800 pb-3">
+        <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto scrollbar-none py-1 -mx-3 px-3 sm:mx-0 sm:px-0">
           <button
             onClick={() => setActiveTab('lesson')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs md:text-sm font-bold transition ${
+            className={`flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold shrink-0 transition ${
               activeTab === 'lesson'
                 ? 'bg-indigo-600 text-white shadow-sm'
                 : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
             }`}
           >
-            <BookOpen className="w-4 h-4" />
-            Topic Lessons (20)
+            <BookOpen className="w-4 h-4 shrink-0" />
+            <span>Lessons ({UNIT1_TOPICS.length})</span>
           </button>
 
           <button
             onClick={() => setActiveTab('flashcards')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs md:text-sm font-bold transition ${
+            className={`flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold shrink-0 transition ${
               activeTab === 'flashcards'
                 ? 'bg-indigo-600 text-white shadow-sm'
                 : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
             }`}
           >
-            <Layers className="w-4 h-4" />
-            Formula Flashcards
+            <Layers className="w-4 h-4 shrink-0" />
+            <span>Flashcards</span>
           </button>
 
           <button
             onClick={() => setActiveTab('mistakes')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs md:text-sm font-bold transition ${
+            className={`flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold shrink-0 transition ${
               activeTab === 'mistakes'
                 ? 'bg-indigo-600 text-white shadow-sm'
                 : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
             }`}
           >
-            <AlertCircle className="w-4 h-4 text-rose-500" />
-            Revise Mistakes ({mistakesList.length})
+            <AlertCircle className="w-4 h-4 text-rose-500 shrink-0" />
+            <span>Mistakes ({mistakesList.length})</span>
           </button>
         </div>
 
         <button
           onClick={() => setResetModalOpen(true)}
-          className="text-xs font-semibold text-slate-500 hover:text-rose-500 dark:text-slate-400 dark:hover:text-rose-400 flex items-center gap-1.5 transition"
+          className="text-xs font-semibold text-slate-500 hover:text-rose-500 dark:text-slate-400 dark:hover:text-rose-400 flex items-center gap-1.5 transition self-end sm:self-auto"
         >
-          <RotateCcw className="w-3.5 h-3.5" /> Reset My Progress
+          <RotateCcw className="w-3.5 h-3.5" /> Reset Progress
         </button>
       </div>
 
       {/* TAB 1: TOPIC LESSONS */}
       {activeTab === 'lesson' && (
-        <div className="grid lg:grid-cols-12 gap-6 items-start">
-          {/* Mobile Topic Dropdown Selector (Compact Collapsible) */}
+        <div className="grid lg:grid-cols-12 gap-4 sm:gap-6 items-start">
+          {/* Mobile Topic Selector Bar (With Quick Step Buttons + Search Drawer) */}
           <div className="lg:hidden col-span-12 space-y-2">
-            <button
-              onClick={() => setMobileTopicDropdownOpen(o => !o)}
-              className="w-full p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl flex items-center justify-between font-bold text-sm text-slate-900 dark:text-white shadow-sm"
-            >
-              <div className="flex items-center gap-2 text-left truncate">
-                <span className="p-1 px-2 rounded-md bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 text-xs">
-                  #{currentTopic.number}
-                </span>
-                <span className="truncate">{currentTopic.title}</span>
-              </div>
-              <ChevronDown className={`w-5 h-5 transition-transform ${mobileTopicDropdownOpen ? 'rotate-180' : ''}`} />
-            </button>
+            <div className="flex items-center gap-1.5">
+              <button
+                disabled={!prevTopic}
+                onClick={() => prevTopic && setSelectedTopicId(prevTopic.id)}
+                className="p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 disabled:opacity-30 rounded-2xl text-slate-700 dark:text-slate-300 shadow-sm shrink-0 min-w-[44px] min-h-[44px] flex items-center justify-center transition active:scale-95"
+                title="Previous topic"
+                aria-label="Previous topic"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
 
+              <button
+                onClick={() => setMobileTopicDropdownOpen(o => !o)}
+                className="flex-1 p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl flex items-center justify-between font-bold text-xs sm:text-sm text-slate-900 dark:text-white shadow-sm min-h-[44px] min-w-0 transition active:scale-[0.99]"
+              >
+                <div className="flex items-center gap-2 text-left truncate min-w-0">
+                  <span className="p-1 px-1.5 rounded-md bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 text-xs font-mono shrink-0">
+                    #{currentTopic.number}
+                  </span>
+                  <span className="truncate">{currentTopic.title}</span>
+                </div>
+                <div className="flex items-center gap-1 shrink-0 text-slate-400">
+                  <span className="text-[11px] font-normal hidden xs:inline">Select</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform ${mobileTopicDropdownOpen ? 'rotate-180' : ''}`} />
+                </div>
+              </button>
+
+              <button
+                disabled={!nextTopic}
+                onClick={() => nextTopic && setSelectedTopicId(nextTopic.id)}
+                className="p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 disabled:opacity-30 rounded-2xl text-slate-700 dark:text-slate-300 shadow-sm shrink-0 min-w-[44px] min-h-[44px] flex items-center justify-center transition active:scale-95"
+                title="Next topic"
+                aria-label="Next topic"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Mobile Topic Drawer / Selector with Search & Category Filter */}
             {mobileTopicDropdownOpen && (
-              <div className="p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl max-h-80 overflow-y-auto space-y-1 animate-fadeIn">
-                {UNIT1_TOPICS.map(t => (
-                  <button
-                    key={t.id}
-                    onClick={() => {
-                      setSelectedTopicId(t.id);
-                      setMobileTopicDropdownOpen(false);
-                    }}
-                    className={`w-full text-left p-3 rounded-xl text-xs font-medium flex items-center justify-between transition ${
-                      selectedTopicId === t.id
-                        ? 'bg-indigo-600 text-white font-bold'
-                        : 'hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'
-                    }`}
-                  >
-                    <span className="truncate">#{t.number}. {t.title}</span>
-                    {completedTopics.includes(t.id) && (
-                      <CheckCircle className={`w-4 h-4 shrink-0 ${selectedTopicId === t.id ? 'text-white' : 'text-emerald-500'}`} />
-                    )}
-                  </button>
-                ))}
+              <div className="p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl max-h-96 overflow-y-auto space-y-3 animate-fadeIn">
+                <div className="space-y-2 sticky top-0 bg-white dark:bg-slate-900 pt-1 pb-2 z-10 border-b border-slate-100 dark:border-slate-800">
+                  <div className="relative">
+                    <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <input
+                      type="text"
+                      placeholder="Search 20 syllabus topics..."
+                      value={searchQuery}
+                      onChange={e => setSearchQuery(e.target.value)}
+                      className="w-full pl-9 pr-4 py-2.5 bg-slate-100 dark:bg-slate-800 rounded-xl text-xs text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
+                  </div>
+
+                  {/* Category Pills on Mobile */}
+                  <div className="flex gap-1 overflow-x-auto pb-1 scrollbar-none text-[11px]">
+                    {categories.map(cat => (
+                      <button
+                        key={cat}
+                        onClick={() => setSelectedCategory(cat)}
+                        className={`px-2.5 py-1 rounded-lg shrink-0 font-medium transition ${
+                          selectedCategory === cat
+                            ? 'bg-indigo-600 text-white font-bold'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                        }`}
+                      >
+                        {cat}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-1 pt-1">
+                  {filteredTopics.length === 0 ? (
+                    <div className="text-center py-6 text-xs text-slate-400">No matching topics found.</div>
+                  ) : (
+                    filteredTopics.map(t => {
+                      const isSelected = selectedTopicId === t.id;
+                      const isDone = completedTopics.includes(t.id);
+                      const isSaved = bookmarkedTopics.includes(t.id);
+
+                      return (
+                        <button
+                          key={t.id}
+                          onClick={() => {
+                            setSelectedTopicId(t.id);
+                            setMobileTopicDropdownOpen(false);
+                          }}
+                          className={`w-full text-left p-2.5 rounded-xl text-xs font-medium flex items-center justify-between gap-2 transition ${
+                            isSelected
+                              ? 'bg-indigo-600 text-white font-bold shadow-xs'
+                              : 'hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2 truncate min-w-0">
+                            <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded shrink-0 ${isSelected ? 'bg-indigo-700 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'}`}>
+                              #{t.number}
+                            </span>
+                            <span className="truncate">{t.title}</span>
+                          </div>
+                          <div className="flex items-center gap-1 shrink-0">
+                            {isSaved && <Bookmark className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />}
+                            {isDone && (
+                              <CheckCircle className={`w-4 h-4 ${isSelected ? 'text-white' : 'text-emerald-500'}`} />
+                            )}
+                          </div>
+                        </button>
+                      );
+                    })
+                  )}
+                </div>
               </div>
             )}
           </div>
@@ -309,30 +385,30 @@ export const LearnPage: React.FC<LearnPageProps> = ({
           </aside>
 
           {/* Lesson Viewer Content */}
-          <main className="lg:col-span-8 space-y-6">
-            <article className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-sm space-y-6">
+          <main className="lg:col-span-8 space-y-4 sm:space-y-6">
+            <article className="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-slate-800 p-4 sm:p-8 shadow-sm space-y-4 sm:space-y-6">
               {/* Header Title & Actions */}
-              <div className="flex flex-wrap items-start justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
                 <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800">
+                  <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                    <span className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg text-[11px] sm:text-xs font-bold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800">
                       Topic #{currentTopic.number} • {currentTopic.category}
                     </span>
                     {isCurrentCompleted && (
-                      <span className="flex items-center gap-1 text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 px-2 py-0.5 rounded-md">
+                      <span className="flex items-center gap-1 text-[11px] sm:text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 px-2 py-0.5 rounded-md">
                         <CheckCircle className="w-3.5 h-3.5" /> Completed
                       </span>
                     )}
                   </div>
-                  <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">
+                  <h2 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-white leading-tight">
                     {currentTopic.title}
                   </h2>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
                   <button
                     onClick={() => onToggleBookmarkTopic(currentTopic.id)}
-                    className={`p-2.5 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition ${
+                    className={`p-2 sm:p-2.5 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition ${
                       isCurrentBookmarked
                         ? 'bg-amber-50 dark:bg-amber-950/60 border-amber-300 text-amber-600'
                         : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-amber-300'
@@ -345,14 +421,14 @@ export const LearnPage: React.FC<LearnPageProps> = ({
 
                   <button
                     onClick={handleCompleteTopic}
-                    className={`p-2.5 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition ${
+                    className={`p-2 sm:p-2.5 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition ${
                       isCurrentCompleted
                         ? 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-300 text-emerald-700 dark:text-emerald-300'
                         : 'bg-indigo-600 hover:bg-indigo-700 border-indigo-600 text-white'
                     }`}
                   >
                     <CheckCircle className="w-4 h-4" />
-                    <span>{isCurrentCompleted ? 'Completed' : 'Mark as Done'}</span>
+                    <span>{isCurrentCompleted ? 'Completed' : 'Mark Done'}</span>
                   </button>
                 </div>
               </div>
@@ -390,20 +466,20 @@ export const LearnPage: React.FC<LearnPageProps> = ({
               </div>
 
               {/* Primary Mathematical Formula Card */}
-              <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border-2 border-indigo-200 dark:border-indigo-800/80 shadow-sm space-y-4 text-slate-900 dark:text-white">
+              <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border-2 border-indigo-200 dark:border-indigo-800/80 shadow-sm space-y-3 sm:space-y-4 text-slate-900 dark:text-white">
                 <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
                   <span className="text-xs font-bold uppercase text-indigo-700 dark:text-indigo-300 tracking-wider">
                     {currentTopic.primaryFormula.name}
                   </span>
                   
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5 sm:gap-2">
                     <button
                       onClick={handleCopyFormula}
-                      className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-lg text-slate-600 dark:text-slate-300 hover:text-indigo-600 bg-slate-100 dark:bg-slate-800 transition"
+                      className="flex items-center gap-1 sm:gap-1.5 px-2.5 py-1 text-xs font-medium rounded-lg text-slate-600 dark:text-slate-300 hover:text-indigo-600 bg-slate-100 dark:bg-slate-800 transition"
                       title="Copy LaTeX"
                     >
                       {copiedFormula ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                      <span>{copiedFormula ? 'Copied' : 'Copy LaTeX'}</span>
+                      <span className="hidden xs:inline">{copiedFormula ? 'Copied' : 'Copy LaTeX'}</span>
                     </button>
 
                     {matchingFormulaInLib && (
@@ -416,14 +492,14 @@ export const LearnPage: React.FC<LearnPageProps> = ({
                         }`}
                       >
                         <Bookmark className="w-3.5 h-3.5" fill={revisionList.includes(matchingFormulaInLib.id) ? 'currentColor' : 'none'} />
-                        <span>Revision List</span>
+                        <span className="hidden xs:inline">Revision</span>
                       </button>
                     )}
                   </div>
                 </div>
 
                 {/* Rendered Math Equation with dedicated background container */}
-                <div className="py-4 px-4 rounded-xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 text-center overflow-x-auto text-base sm:text-lg text-indigo-950 dark:text-indigo-200 font-semibold shadow-inner">
+                <div className="py-3 sm:py-4 px-2 sm:px-4 rounded-xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 text-center overflow-x-auto scrollbar-none text-sm sm:text-base md:text-lg text-indigo-950 dark:text-indigo-200 font-semibold shadow-inner">
                   <MathView math={currentTopic.primaryFormula.latex} block />
                 </div>
 
@@ -639,24 +715,24 @@ export const LearnPage: React.FC<LearnPageProps> = ({
               </div>
 
               {/* Prev / Next Navigation Bar */}
-              <div className="flex items-center justify-between pt-6 border-t border-slate-200 dark:border-slate-800">
+              <div className="flex items-center justify-between gap-2 pt-5 border-t border-slate-200 dark:border-slate-800">
                 {prevTopic ? (
                   <button
                     onClick={() => setSelectedTopicId(prevTopic.id)}
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-indigo-400 text-xs font-bold text-slate-700 dark:text-slate-200 transition"
+                    className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-indigo-400 text-xs font-bold text-slate-700 dark:text-slate-200 transition active:scale-95 min-h-[44px]"
                   >
-                    <ChevronLeft className="w-4 h-4" />
-                    <span>Previous: #{prevTopic.number}</span>
+                    <ChevronLeft className="w-4 h-4 shrink-0" />
+                    <span><span className="hidden xs:inline">Prev</span> (#{prevTopic.number})</span>
                   </button>
                 ) : <div />}
 
                 {nextTopic ? (
                   <button
                     onClick={() => setSelectedTopicId(nextTopic.id)}
-                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-md shadow-indigo-500/20 transition"
+                    className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-md shadow-indigo-500/20 transition active:scale-95 min-h-[44px]"
                   >
-                    <span>Next: #{nextTopic.number} {nextTopic.title.slice(0, 15)}...</span>
-                    <ChevronRight className="w-4 h-4" />
+                    <span><span className="hidden xs:inline">Next</span> (#{nextTopic.number})</span>
+                    <ChevronRight className="w-4 h-4 shrink-0" />
                   </button>
                 ) : (
                   <div className="text-xs font-bold text-emerald-600">You reached the end of Unit 1!</div>
@@ -669,9 +745,9 @@ export const LearnPage: React.FC<LearnPageProps> = ({
 
       {/* TAB 2: FORMULA FLASHCARDS */}
       {activeTab === 'flashcards' && (
-        <div className="max-w-2xl mx-auto space-y-6">
+        <div className="max-w-2xl mx-auto space-y-4 sm:space-y-6">
           <div className="text-center space-y-1">
-            <h3 className="text-xl font-extrabold text-slate-900 dark:text-white">Unit 1 Formula Flashcards</h3>
+            <h3 className="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white">Unit 1 Formula Flashcards</h3>
             <p className="text-xs text-slate-500">Test your mental recall of core combinatorial formulas</p>
           </div>
 
@@ -682,34 +758,34 @@ export const LearnPage: React.FC<LearnPageProps> = ({
               <div className="space-y-4">
                 <div 
                   onClick={() => setIsFlashcardFlipped(f => !f)}
-                  className="min-h-[260px] p-8 rounded-3xl border-2 border-indigo-200 dark:border-indigo-800 bg-white dark:bg-slate-900 flex flex-col items-center justify-center text-center cursor-pointer shadow-lg transition-transform hover:scale-[1.01]"
+                  className="min-h-[220px] sm:min-h-[260px] p-5 sm:p-8 rounded-2xl sm:rounded-3xl border-2 border-indigo-200 dark:border-indigo-800 bg-white dark:bg-slate-900 flex flex-col items-center justify-center text-center cursor-pointer shadow-lg transition-transform hover:scale-[1.01] active:scale-[0.99]"
                 >
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-3">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-2 sm:mb-3">
                     {card.category} • Card {flashcardIndex + 1} of {FORMULA_LIBRARY.length}
                   </span>
 
                   {!isFlashcardFlipped ? (
-                    <div className="space-y-4">
-                      <h4 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
+                    <div className="space-y-3 sm:space-y-4">
+                      <h4 className="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">
                         {card.name}
                       </h4>
                       <p className="text-xs text-slate-500 max-w-md">
                         {card.whenToUse}
                       </p>
-                      <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-indigo-600 pt-4">
+                      <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-indigo-600 pt-3 sm:pt-4">
                         <Eye className="w-4 h-4" /> Tap card to reveal formula
                       </div>
                     </div>
                   ) : (
-                    <div className="space-y-4 animate-fadeIn">
-                      <h4 className="text-sm font-bold text-slate-500">{card.name}</h4>
-                      <div className="text-lg sm:text-xl py-2">
+                    <div className="space-y-3 sm:space-y-4 animate-fadeIn">
+                      <h4 className="text-xs sm:text-sm font-bold text-slate-500">{card.name}</h4>
+                      <div className="text-base sm:text-xl py-1 sm:py-2 overflow-x-auto scrollbar-none">
                         <MathView math={card.latex} block />
                       </div>
-                      <div className="text-xs text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 p-2.5 rounded-xl font-mono">
+                      <div className="text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 p-2 sm:p-2.5 rounded-xl font-mono">
                         Ex: {card.workedExample.problem} → <span className="font-bold text-emerald-600">{card.workedExample.result}</span>
                       </div>
-                      <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-slate-400 pt-2">
+                      <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-slate-400 pt-1 sm:pt-2">
                         <EyeOff className="w-4 h-4" /> Tap to hide
                       </div>
                     </div>
@@ -717,23 +793,23 @@ export const LearnPage: React.FC<LearnPageProps> = ({
                 </div>
 
                 {/* Flashcard Navigation */}
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-2">
                   <button
                     disabled={flashcardIndex === 0}
                     onClick={() => {
                       setFlashcardIndex(i => i - 1);
                       setIsFlashcardFlipped(false);
                     }}
-                    className="px-4 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 disabled:opacity-30 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 transition"
+                    className="flex-1 sm:flex-none px-3 sm:px-4 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 disabled:opacity-30 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 transition min-h-[44px]"
                   >
-                    ← Previous
+                    ← Prev
                   </button>
 
                   <button
                     onClick={() => setIsFlashcardFlipped(f => !f)}
-                    className="px-4 py-2 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 rounded-xl text-xs font-bold border border-indigo-200 dark:border-indigo-800"
+                    className="flex-1 sm:flex-none px-3 sm:px-4 py-2.5 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 rounded-xl text-xs font-bold border border-indigo-200 dark:border-indigo-800 min-h-[44px]"
                   >
-                    {isFlashcardFlipped ? 'Hide Answer' : 'Show Answer'}
+                    {isFlashcardFlipped ? 'Hide' : 'Reveal'}
                   </button>
 
                   <button
@@ -742,7 +818,7 @@ export const LearnPage: React.FC<LearnPageProps> = ({
                       setFlashcardIndex(i => i + 1);
                       setIsFlashcardFlipped(false);
                     }}
-                    className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-30 text-white rounded-xl text-xs font-bold transition"
+                    className="flex-1 sm:flex-none px-3 sm:px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-30 text-white rounded-xl text-xs font-bold transition min-h-[44px]"
                   >
                     Next →
                   </button>
